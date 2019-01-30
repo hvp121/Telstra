@@ -1,7 +1,9 @@
-package com.telstraasgn;
+package com.telstraasgn.activity;
 
 import android.app.Activity;
 import android.os.Bundle;
+
+import com.telstraasgn.R;
 
 public class MainActivity extends Activity {
 
