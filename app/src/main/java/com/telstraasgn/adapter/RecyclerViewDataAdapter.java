@@ -6,12 +6,15 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.squareup.picasso.Picasso;
 import com.telstraasgn.R;
 import com.telstraasgn.model.CountryData;
 
 import java.util.ArrayList;
+
 
 public class RecyclerViewDataAdapter extends RecyclerView.Adapter<RecyclerViewDataAdapter.CountryViewHolder> {
     private ArrayList<CountryData> dataList;
@@ -31,6 +34,14 @@ public class RecyclerViewDataAdapter extends RecyclerView.Adapter<RecyclerViewDa
         holder.txtDataBrief.setText(dataList.get(position).getDescription());
         //holder.txtNoticeFilePath.setText(dataList.get(position).getFileSource());
 
+        /*Picasso.with(context)
+                .load("http://i.imgur.com/DvpvklR.png") //URL/FILE
+                .into(imageView);*/
+
+
+        Picasso.get().load(dataList.get(position).getImageHref()).placeholder(R.drawable.image_not_available)
+                .into(holder.imgData);
+
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -45,14 +56,18 @@ public class RecyclerViewDataAdapter extends RecyclerView.Adapter<RecyclerViewDa
     }
     class CountryViewHolder extends RecyclerView.ViewHolder {
 
-        TextView txtDataTitle, txtDataBrief, txtNoticeFilePath;
+        //@BindView(R.id.txt_data_title) TextView txtDataTitle;
+        //@BindView(R.id.txt_data_brief) TextView txtDataBrief;
+        //@BindView(R.id.img_data) ImageView imgData;
+        TextView txtDataTitle, txtDataBrief;
+        ImageView imgData;
 
         CountryViewHolder(View itemView) {
             super(itemView);
             txtDataTitle =  itemView.findViewById(R.id.txt_data_title);
             txtDataBrief =  itemView.findViewById(R.id.txt_data_brief);
-            //txtNoticeFilePath =  itemView.findViewById(R.id.txt_notice_file_path);
-
+            imgData =  itemView.findViewById(R.id.img_data);
+            //ButterKnife.bind(this,itemView);
         }
     }
 }

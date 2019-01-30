@@ -12,7 +12,8 @@ public class CountryDataList {
         return countryDataList;
     }
 
-    public void setNoticeArrayList(ArrayList<CountryData> noticeArrayList) {
-        this.countryDataList = noticeArrayList;
-    }
+    @SerializedName("title")
+    private String countryName;
+
+    public String getCountryName(){return countryName;}
 }

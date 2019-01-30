@@ -19,18 +19,18 @@ import com.telstraasgn.adapter.RecyclerViewDataAdapter;
 import com.telstraasgn.model.CountryData;
 
 import java.util.ArrayList;
+import java.util.Collections;
 
 public class MainActivity extends Activity implements MainContract.MainView {
 
     private MainContract.presenter presenter;
     private ProgressBar progressBar;
     private RecyclerView recyclerView;
-
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
         initializeToolbarAndRecyclerView();
         initProgressBar();
 
@@ -80,8 +80,15 @@ public class MainActivity extends Activity implements MainContract.MainView {
     }
 
     @Override
-    public void setDataToRecyclerView(ArrayList<CountryData> noticeArrayList) {
-        RecyclerViewDataAdapter adapter = new RecyclerViewDataAdapter(noticeArrayList);
+    public void setDataToRecyclerView(ArrayList<CountryData> CountryDataArrayList) {
+        ArrayList<CountryData> CleanCountryDataArrayList = new ArrayList<>();
+        for (int i = 0;i<CountryDataArrayList.size();i++){
+            if(CountryDataArrayList.get(i).getTitle()!=null&&CountryDataArrayList.get(i).getDescription()!=null
+                && CountryDataArrayList.get(i).getImageHref()!=null){
+                CleanCountryDataArrayList.add(CountryDataArrayList.get(i));
+            }
+        }
+        RecyclerViewDataAdapter adapter = new RecyclerViewDataAdapter(CleanCountryDataArrayList);
         recyclerView.setAdapter(adapter);
 
     }
@@ -92,6 +99,15 @@ public class MainActivity extends Activity implements MainContract.MainView {
                 "Something went wrong...Error message: " + throwable.getMessage(),
                 Toast.LENGTH_LONG).show();
     }
+
+    @Override
+    public void setActionBarTitle(String countryName) {
+        if(countryName!=null)
+            getActionBar().setTitle(countryName);
+        else
+            getActionBar().setTitle("");
+    }
+
     @Override
     protected void onDestroy() {
         super.onDestroy();
