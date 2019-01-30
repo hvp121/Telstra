@@ -5,10 +5,10 @@ import com.google.gson.annotations.SerializedName;
 import java.util.ArrayList;
 
 public class CountryDataList {
-    @SerializedName("notice_list")
+    @SerializedName("rows")
     private ArrayList<CountryData> countryDataList;
 
-    public ArrayList<CountryData> getNoticeArrayList() {
+    public ArrayList<CountryData> getCountryDataArrayList() {
         return countryDataList;
     }
 
