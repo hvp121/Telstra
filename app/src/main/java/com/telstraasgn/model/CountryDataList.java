@@ -4,6 +4,7 @@ import com.google.gson.annotations.SerializedName;
 
 import java.util.ArrayList;
 
+//Retrofit Model Class
 public class CountryDataList {
     @SerializedName("rows")
     private ArrayList<CountryData> countryDataList;

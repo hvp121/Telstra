@@ -1,7 +1,6 @@
 package com.telstraasgn.model;
 
 import com.google.gson.annotations.SerializedName;
-
 public class CountryData {
 
     @SerializedName("title")

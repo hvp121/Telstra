@@ -15,7 +15,7 @@ import com.telstraasgn.model.CountryData;
 
 import java.util.ArrayList;
 
-
+//RecyclerView Adapter Class
 public class RecyclerViewDataAdapter extends RecyclerView.Adapter<RecyclerViewDataAdapter.CountryViewHolder> {
     private ArrayList<CountryData> dataList;
     public RecyclerViewDataAdapter(ArrayList<CountryData> dataList ) {

@@ -4,7 +4,6 @@ import android.app.Activity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -12,18 +11,16 @@ import android.view.View;
 import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.Toast;
-import android.widget.Toolbar;
 
 import com.telstraasgn.R;
 import com.telstraasgn.adapter.RecyclerViewDataAdapter;
 import com.telstraasgn.model.CountryData;
 
 import java.util.ArrayList;
-import java.util.Collections;
 
-public class MainActivity extends Activity implements MainContract.MainView {
+public class CountryActivity extends Activity implements CountryContract.MainView {
 
-    private MainContract.presenter presenter;
+    private CountryContract.presenter presenter;
     private ProgressBar progressBar;
     private RecyclerView recyclerView;
     @Override
@@ -34,14 +31,15 @@ public class MainActivity extends Activity implements MainContract.MainView {
         initializeToolbarAndRecyclerView();
         initProgressBar();
 
-        presenter = new MainPresenterImpl(this, new GetCountryDataIntractorImpl());
+        presenter = new CountryPresenterImpl(this, new CountryDataIntractorImpl());
         presenter.requestDataFromServer();
     }
+    //Initialize Toolbar and RecycleView
     private void initializeToolbarAndRecyclerView() {
 
 
         recyclerView = findViewById(R.id.recycler_view_employee_list);
-        RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(MainActivity.this);
+        RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(CountryActivity.this);
         recyclerView.setLayoutManager(layoutManager);
 
     }
@@ -69,16 +67,19 @@ public class MainActivity extends Activity implements MainContract.MainView {
         return super.onOptionsItemSelected(item);
     }
 
+    //Progressbar Visible
     @Override
     public void showProgress() {
         progressBar.setVisibility(View.VISIBLE);
     }
 
+    //Progressbar InVisible
     @Override
     public void hideProgress() {
         progressBar.setVisibility(View.INVISIBLE);
     }
 
+    //Method for data set in RecyclerView
     @Override
     public void setDataToRecyclerView(ArrayList<CountryData> CountryDataArrayList) {
         ArrayList<CountryData> CleanCountryDataArrayList = new ArrayList<>();
@@ -93,26 +94,31 @@ public class MainActivity extends Activity implements MainContract.MainView {
 
     }
 
+    //Connection Lost Error message
     @Override
     public void onResponseFailure(Throwable throwable) {
-        Toast.makeText(MainActivity.this,
+        Toast.makeText(CountryActivity.this,
                 "Something went wrong...Error message: " + throwable.getMessage(),
                 Toast.LENGTH_LONG).show();
     }
 
+    //Set Title for ActionBar
     @Override
     public void setActionBarTitle(String countryName) {
-        if(countryName!=null)
+        if(countryName!=null) {
             getActionBar().setTitle(countryName);
+        }
         else
             getActionBar().setTitle("");
     }
 
+    // Destroy Method for activity and Presenter class
     @Override
     protected void onDestroy() {
         super.onDestroy();
         presenter.onDestroy();
     }
+    //ProgressBar Method
     private void initProgressBar() {
         progressBar = new ProgressBar(this, null, android.R.attr.progressBarStyleLarge);
         progressBar.setIndeterminate(true);
