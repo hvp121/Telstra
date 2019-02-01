@@ -9,10 +9,11 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewParent;
 
+import com.telstraasgn.R;
+
 import org.hamcrest.Description;
 import org.hamcrest.Matcher;
 import org.hamcrest.TypeSafeMatcher;
-import org.hamcrest.core.IsInstanceOf;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -20,28 +21,26 @@ import org.junit.runner.RunWith;
 import static android.support.test.espresso.Espresso.onView;
 import static android.support.test.espresso.assertion.ViewAssertions.matches;
 import static android.support.test.espresso.matcher.ViewMatchers.isDisplayed;
-import static android.support.test.espresso.matcher.ViewMatchers.withText;
+import static android.support.test.espresso.matcher.ViewMatchers.withId;
 import static org.hamcrest.Matchers.allOf;
 
 @LargeTest
 @RunWith(AndroidJUnit4.class)
-public class CountryActivityTest {
+public class CountryActivityTest2 {
 
     @Rule
     public ActivityTestRule<CountryActivity> mActivityTestRule = new ActivityTestRule<>(CountryActivity.class);
 
     @Test
-    public void countryActivityTest() {
-        ViewInteraction textView = onView(
-                allOf(withText("About Canada"),
+    public void countryActivityTest2() {
+        ViewInteraction linearLayout = onView(
+                allOf(childAtPosition(
                         childAtPosition(
-                                allOf(IsInstanceOf.<View>instanceOf(android.view.ViewGroup.class),
-                                        childAtPosition(
-                                                IsInstanceOf.<View>instanceOf(android.widget.FrameLayout.class),
-                                                0)),
+                                withId(R.id.recycler_view_list),
                                 0),
+                        0),
                         isDisplayed()));
-        textView.check(matches(withText("About Canada")));
+        linearLayout.check(matches(isDisplayed()));
     }
 
     private static Matcher<View> childAtPosition(
