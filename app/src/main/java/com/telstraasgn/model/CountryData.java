@@ -1,13 +1,15 @@
 package com.telstraasgn.model;
 
 import com.google.gson.annotations.SerializedName;
+import com.telstraasgn.utils.Constants;
+
 public class CountryData {
 
-    @SerializedName("title")
+    @SerializedName(Constants.API_TITLE)
     private String title;
-    @SerializedName("description")
+    @SerializedName(Constants.API_DESC)
     private String description;
-    @SerializedName("imageHref")
+    @SerializedName(Constants.API_IMAGE)
     private String imageHref;
 
     public CountryData(String title, String description, String imageHref) {

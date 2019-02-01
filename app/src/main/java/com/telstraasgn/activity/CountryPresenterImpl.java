@@ -22,11 +22,8 @@ public class CountryPresenterImpl implements CountryContract.presenter, CountryC
 
     //Refresh Data Method
     @Override
-    public void onRefreshButtonClick() {
+    public void onRefresh() {
 
-        if(mainView != null){
-            mainView.showProgress();
-        }
         getCountryDataIntractor.getCountryDataArrayList(this);
 
     }
@@ -39,18 +36,30 @@ public class CountryPresenterImpl implements CountryContract.presenter, CountryC
     //Return data to View Class
     @Override
     public void onFinished(ArrayList<CountryData> countryDataArrayList, String countryName) {
-        if(mainView != null){
-            mainView.setDataToRecyclerView(countryDataArrayList);
-            mainView.hideProgress();
-            mainView.setActionBarTitle(countryName);
+        if(mainView != null) {
+
+            if (countryDataArrayList.size() > 0) {
+                ArrayList<CountryData> cleanCountryDataArrayList = new ArrayList<>();
+                for (int i = 0; i < countryDataArrayList.size(); i++) {
+                    if (countryDataArrayList.get(i).getTitle() != null && countryDataArrayList.get(i).getDescription() != null
+                            && countryDataArrayList.get(i).getImageHref() != null) {
+                        cleanCountryDataArrayList.add(countryDataArrayList.get(i));
+                    }
+                }
+                mainView.setDataToRecyclerView(cleanCountryDataArrayList);
+                mainView.setActionBarTitle(countryName);
+            }
+            else{
+                mainView.emptyRecyclerView();
+            }
         }
+
     }
     //Presenter data failed method
     @Override
     public void onFailure(Throwable t) {
         if(mainView != null){
             mainView.onResponseFailure(t);
-            mainView.hideProgress();
         }
     }
 }

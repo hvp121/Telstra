@@ -13,7 +13,7 @@ public interface CountryContract {
 
         void onDestroy();
 
-        void onRefreshButtonClick();
+        void onRefresh();
 
         void requestDataFromServer();
 
@@ -25,11 +25,9 @@ public interface CountryContract {
      **/
     interface MainView {
 
-        void showProgress();
-
-        void hideProgress();
-
         void setDataToRecyclerView(ArrayList<CountryData> noticeArrayList);
+
+        void emptyRecyclerView();
 
         void onResponseFailure(Throwable throwable);
 

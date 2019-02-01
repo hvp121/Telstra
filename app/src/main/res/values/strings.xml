@@ -1,6 +1,9 @@
 <resources>
+    <!--Title-->
     <string name="app_name">Country Info</string>
     <string name="action_settings">Settings</string>
     <string name="action_refresh">Refresh</string>
+    <!--Error messages-->
+    <string name="error_internet">\"Oops, Inertnet not available!!\"</string>
 </resources>
 
