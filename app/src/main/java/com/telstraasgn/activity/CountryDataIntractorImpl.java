@@ -29,14 +29,13 @@ public class CountryDataIntractorImpl implements CountryContract.GetCountryDataI
         Call<CountryDataList> call = service.getCountryData();
 
         /**Log the URL called*/
-        Log.wtf("URL Called", call.request().url() + "");
+        //Log.wtf("URL Called", call.request().url() + "");
 
         /**Retrofit API Calling*/
         call.enqueue(new Callback<CountryDataList>() {
             @Override
             public void onResponse(Call<CountryDataList> call, Response<CountryDataList> response) {
                 onFinishedListener.onFinished(response.body().getCountryDataArrayList(),response.body().getCountryName());
-                Log.e("OUTPUT",response.body().getCountryDataArrayList()+"");
 
             }
 

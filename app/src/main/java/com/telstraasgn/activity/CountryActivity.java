@@ -1,9 +1,6 @@
 package com.telstraasgn.activity;
 
 import android.app.Activity;
-import android.content.Context;
-import android.net.ConnectivityManager;
-import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
@@ -37,14 +34,8 @@ public class CountryActivity extends Activity implements CountryContract.MainVie
         initializeRecyclerView();
 
         presenter = new CountryPresenterImpl(this, new CountryDataIntractorImpl());
-        if(isNetworkAvailable())
-            presenter.requestDataFromServer();
-        else
-        {
-            recyclerView.setVisibility(View.GONE);
-            internetText.setVisibility(View.VISIBLE);
-            internetText.setText(getResources().getString(R.string.error_internet));
-        }
+        presenter.requestDataFromServer();
+
     }
 
     private void initializeSwipeRefreshView() {
@@ -52,14 +43,7 @@ public class CountryActivity extends Activity implements CountryContract.MainVie
         swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
-                if(isNetworkAvailable())
-                    presenter.onRefresh();
-                else
-                {
-                    recyclerView.setVisibility(View.GONE);
-                    internetText.setVisibility(View.VISIBLE);
-                    internetText.setText(getResources().getString(R.string.error_internet));
-                }
+                presenter.onRefresh();
                 swipeRefreshLayout.setRefreshing(false);
             }
         });
@@ -94,18 +78,24 @@ public class CountryActivity extends Activity implements CountryContract.MainVie
     //Connection Lost Error message
     @Override
     public void onResponseFailure(Throwable throwable) {
-        Toast.makeText(CountryActivity.this,"Something went wrong...Error message: " + throwable.getMessage(),Toast.LENGTH_LONG).show();
+        recyclerView.setVisibility(View.GONE);
+        internetText.setVisibility(View.VISIBLE);
+        internetText.setText(getResources().getString(R.string.error_internet));
+        Toast.makeText(CountryActivity.this,""+getResources().getString(R.string.responsefailure) + throwable.getMessage(),Toast.LENGTH_LONG).show();
 
     }
 
     //Set Title for ActionBar
     @Override
     public void setActionBarTitle(String countryName) {
-        if(countryName!=null) {
             getActionBar().setTitle(countryName);
-        }
-        else
-            getActionBar().setTitle("");
+    }
+
+    @Override
+    public void connectionNotAvailable() {
+        recyclerView.setVisibility(View.GONE);
+        internetText.setVisibility(View.VISIBLE);
+        internetText.setText(getResources().getString(R.string.error_internet));
     }
 
     // Destroy Method for activity and Presenter class
@@ -113,12 +103,6 @@ public class CountryActivity extends Activity implements CountryContract.MainVie
     protected void onDestroy() {
         super.onDestroy();
         presenter.onDestroy();
-    }
-    private boolean isNetworkAvailable() {
-        ConnectivityManager connectivityManager
-                = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
-        NetworkInfo activeNetworkInfo = connectivityManager.getActiveNetworkInfo();
-        return activeNetworkInfo != null && activeNetworkInfo.isConnected();
     }
 
 }

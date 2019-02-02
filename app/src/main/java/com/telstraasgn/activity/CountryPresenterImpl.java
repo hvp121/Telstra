@@ -1,6 +1,8 @@
 package com.telstraasgn.activity;
 
+import com.telstraasgn.app.App;
 import com.telstraasgn.model.CountryData;
+import com.telstraasgn.utils.ConnectionManager;
 
 import java.util.ArrayList;
 
@@ -24,13 +26,18 @@ public class CountryPresenterImpl implements CountryContract.presenter, CountryC
     @Override
     public void onRefresh() {
 
-        getCountryDataIntractor.getCountryDataArrayList(this);
-
+        if(ConnectionManager.getInstance(App.getInstance()).isConnectingToInternet())
+            getCountryDataIntractor.getCountryDataArrayList(this);
+        else
+            mainView.connectionNotAvailable();
     }
     //Get data from Model Class
     @Override
     public void requestDataFromServer() {
-        getCountryDataIntractor.getCountryDataArrayList(this);
+        if(ConnectionManager.getInstance(App.getInstance()).isConnectingToInternet())
+            getCountryDataIntractor.getCountryDataArrayList(this);
+        else
+            mainView.connectionNotAvailable();
     }
 
     //Return data to View Class
@@ -47,8 +54,11 @@ public class CountryPresenterImpl implements CountryContract.presenter, CountryC
                     }
                 }
                 mainView.setDataToRecyclerView(cleanCountryDataArrayList);
-                mainView.setActionBarTitle(countryName);
-            }
+
+                if(countryName!=null) {
+                    mainView.setActionBarTitle(countryName);                }
+                else
+                    mainView.setActionBarTitle("");            }
             else{
                 mainView.emptyRecyclerView();
             }

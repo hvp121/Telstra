@@ -1,7 +1,7 @@
 package com.telstraasgn.model;
 
 import com.google.gson.annotations.SerializedName;
-import com.telstraasgn.utils.Constants;
+import com.telstraasgn.app.Constants;
 
 public class CountryData {
 

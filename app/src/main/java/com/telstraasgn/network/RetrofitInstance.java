@@ -1,6 +1,6 @@
 package com.telstraasgn.network;
 
-import com.telstraasgn.utils.Constants;
+import com.telstraasgn.app.Constants;
 
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;

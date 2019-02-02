@@ -1,4 +1,4 @@
-package com.telstraasgn.utils;
+package com.telstraasgn.app;
 
 public class Constants {
 

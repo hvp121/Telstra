@@ -32,6 +32,8 @@ public interface CountryContract {
         void onResponseFailure(Throwable throwable);
 
         void setActionBarTitle(String countryName);
+
+        void connectionNotAvailable();
     }
 
     /**
