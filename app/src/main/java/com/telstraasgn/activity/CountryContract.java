@@ -8,8 +8,8 @@ public interface CountryContract {
 
     /**
      * Call when user interact with the view and other when view OnDestroy()
-     * */
-    interface presenter{
+     */
+    interface presenter {
 
         void onDestroy();
 
@@ -41,11 +41,12 @@ public interface CountryContract {
      **/
     interface GetCountryDataIntractor {
 
+        void getCountryDataArrayList(OnFinishedListener onFinishedListener);
+
         interface OnFinishedListener {
             void onFinished(ArrayList<CountryData> noticeArrayList, String countryName);
+
             void onFailure(Throwable t);
         }
-
-        void getCountryDataArrayList(OnFinishedListener onFinishedListener);
     }
 }

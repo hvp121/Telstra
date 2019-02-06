@@ -41,17 +41,16 @@
         <!-- Text Notice Description -->
         <TextView
             android:id="@+id/txt_data_brief"
-            android:layout_width="match_parent"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
+            android:layout_weight="0.6"
             android:padding="3dp"
              />
         <ImageView
             android:id="@+id/img_data"
-            android:layout_width="match_parent"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal"
-            android:layout_weight="1"
+            android:layout_weight="0.4"
             />
     </LinearLayout>
 

@@ -1,7 +1,5 @@
 package com.telstraasgn.activity;
 
-import android.util.Log;
-
 import com.telstraasgn.listener.GetDataApiService;
 import com.telstraasgn.model.CountryData;
 import com.telstraasgn.model.CountryDataList;
@@ -17,7 +15,9 @@ public class CountryDataIntractorImpl implements CountryContract.GetCountryDataI
 
     ArrayList<CountryData> countryDataList1;
 
-    /** Model Class API Calling*/
+    /**
+     * Model Class API Calling
+     */
     @Override
     public void getCountryDataArrayList(final OnFinishedListener onFinishedListener) {
 
@@ -35,7 +35,7 @@ public class CountryDataIntractorImpl implements CountryContract.GetCountryDataI
         call.enqueue(new Callback<CountryDataList>() {
             @Override
             public void onResponse(Call<CountryDataList> call, Response<CountryDataList> response) {
-                onFinishedListener.onFinished(response.body().getCountryDataArrayList(),response.body().getCountryName());
+                onFinishedListener.onFinished(response.body().getCountryDataArrayList(), response.body().getCountryName());
 
             }
 

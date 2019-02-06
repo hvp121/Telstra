@@ -6,7 +6,7 @@ import com.telstraasgn.utils.ConnectionManager;
 
 import java.util.ArrayList;
 
-public class CountryPresenterImpl implements CountryContract.presenter, CountryContract.GetCountryDataIntractor.OnFinishedListener{
+public class CountryPresenterImpl implements CountryContract.presenter, CountryContract.GetCountryDataIntractor.OnFinishedListener {
     private CountryContract.MainView mainView;
     private CountryContract.GetCountryDataIntractor getCountryDataIntractor;
 
@@ -14,6 +14,7 @@ public class CountryPresenterImpl implements CountryContract.presenter, CountryC
         this.mainView = mainView;
         this.getCountryDataIntractor = getCountryDataIntractor;
     }
+
     //Maincontract Override method
     @Override
     public void onDestroy() {
@@ -26,15 +27,16 @@ public class CountryPresenterImpl implements CountryContract.presenter, CountryC
     @Override
     public void onRefresh() {
 
-        if(ConnectionManager.getInstance(App.getInstance()).isConnectingToInternet())
+        if (ConnectionManager.getInstance(App.getInstance()).isConnectingToInternet())
             getCountryDataIntractor.getCountryDataArrayList(this);
         else
             mainView.connectionNotAvailable();
     }
+
     //Get data from Model Class
     @Override
     public void requestDataFromServer() {
-        if(ConnectionManager.getInstance(App.getInstance()).isConnectingToInternet())
+        if (ConnectionManager.getInstance(App.getInstance()).isConnectingToInternet())
             getCountryDataIntractor.getCountryDataArrayList(this);
         else
             mainView.connectionNotAvailable();
@@ -43,7 +45,7 @@ public class CountryPresenterImpl implements CountryContract.presenter, CountryC
     //Return data to View Class
     @Override
     public void onFinished(ArrayList<CountryData> countryDataArrayList, String countryName) {
-        if(mainView != null) {
+        if (mainView != null) {
 
             if (countryDataArrayList.size() > 0) {
                 ArrayList<CountryData> cleanCountryDataArrayList = new ArrayList<>();
@@ -55,20 +57,21 @@ public class CountryPresenterImpl implements CountryContract.presenter, CountryC
                 }
                 mainView.setDataToRecyclerView(cleanCountryDataArrayList);
 
-                if(countryName!=null) {
-                    mainView.setActionBarTitle(countryName);                }
-                else
-                    mainView.setActionBarTitle("");            }
-            else{
+                if (countryName != null) {
+                    mainView.setActionBarTitle(countryName);
+                } else
+                    mainView.setActionBarTitle("");
+            } else {
                 mainView.emptyRecyclerView();
             }
         }
 
     }
+
     //Presenter data failed method
     @Override
     public void onFailure(Throwable t) {
-        if(mainView != null){
+        if (mainView != null) {
             mainView.onResponseFailure(t);
         }
     }

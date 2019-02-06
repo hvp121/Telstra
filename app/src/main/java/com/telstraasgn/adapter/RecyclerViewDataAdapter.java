@@ -39,7 +39,10 @@ public class RecyclerViewDataAdapter extends RecyclerView.Adapter<RecyclerViewDa
                 .into(imageView);*/
 
 
-        Picasso.get().load(dataList.get(position).getImageHref()).placeholder(R.drawable.image_not_available)
+        Picasso.get()
+                .load(dataList.get(position)
+                .getImageHref())
+                .placeholder(R.drawable.image_not_available)
                 .into(holder.imgData);
 
         holder.itemView.setOnClickListener(new View.OnClickListener() {
